@@ -1,18 +1,23 @@
 package Demo01.demov1.Models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="product")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String productName;
-    private int year;
+    private int Devyear;
     private Double price;
     private String url;
 
-    public Product(Long id, String url, Double price, int year, String productName) {
-        this.id = id;
-        this.url = url;
-        this.price = price;
-        this.year = year;
+    public Product( String productName, Double price, int Devyear, String url) {
         this.productName = productName;
+        this.price = price;
+        this.Devyear = Devyear;
+        this.url = url;
     }
 
     public Product() {}
@@ -22,7 +27,7 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", productName='" + productName + '\'' +
-                ", year=" + year +
+                ", year=" + Devyear +
                 ", price=" + price +
                 ", url='" + url + '\'' +
                 '}';
@@ -44,12 +49,12 @@ public class Product {
         this.productName = productName;
     }
 
-    public int getYear() {
-        return year;
+    public int getDevyear() {
+        return Devyear;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setDevyear(int Devyear) {
+        this.Devyear = Devyear;
     }
 
     public Double getPrice() {
