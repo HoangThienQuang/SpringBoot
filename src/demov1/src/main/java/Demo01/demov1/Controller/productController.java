@@ -64,7 +64,10 @@ public class productController {
     {
         Product updateProduct = repository.findById(id)
                 .map(product -> {
-                    product.setProductName(newProduct.getProductName());
+                    if (repository.findByProductName(newProduct.getProductName()).isEmpty())
+                    {
+                        product.setProductName(newProduct.getProductName());
+                    }
                     product.setPrice(newProduct.getPrice());
                     product.setDevyear(newProduct.getDevyear());
                     product.setUrl(newProduct.getUrl());
@@ -75,6 +78,21 @@ public class productController {
                 });
         return ResponseEntity.status(HttpStatus.OK).body(
                 new responseObject("ok", "Update successful", updateProduct)
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<responseObject> deleteProduct(@PathVariable Long id)
+    {
+        boolean existProduct = repository.existsById(id);
+        if (existProduct)
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new responseObject("ok","Delete successfully !", "")
+            );
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new responseObject("Failed","Can not find product to delete !","")
         );
     }
 }
