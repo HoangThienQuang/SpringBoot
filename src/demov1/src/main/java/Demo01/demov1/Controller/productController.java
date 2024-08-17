@@ -87,6 +87,7 @@ public class productController {
         boolean existProduct = repository.existsById(id);
         if (existProduct)
         {
+            repository.deleteById(id);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new responseObject("ok","Delete successfully !", "")
             );
